@@ -1,6 +1,6 @@
 Changes and Sonar, Circle.ci, Snyk results under Updates To The App.docx.
 
-Encountering minor error where my react scripts do not download using npm install, use  ```bash
+Encountering minor error where my react scripts do not download using npm install, use  ```
 npm install -g react-scripts   ```  if this occurs.
 
 
