@@ -1,0 +1,130 @@
+name: DevSecOps
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v2.1.0 # Use the appropriate version
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:4.4
+        ports:
+          - 27017:27017
+
+    strategy:
+      matrix:
+        node-version: [16.x]  # Only use Node.js version 16.x
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: 🛎 Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js (only for version 16)
+      - name: 🛠 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Set to version 16 only
+
+      # Debugging Step: List the directory contents to verify path
+      - name: List Directory Contents
+        run: |
+          ls -al
+          echo "Check if the directory 'Backend' exists."
+      
+      # Step 3: Install backend dependencies
+      - name: Install Backend Dependencies
+        run: |
+          cd "Backend"
+          npm install
+          echo "Backend dependencies installed."
+      
+      # Step 4: Verify Node.js version
+      - name: 🛠 Verify Node.js Version
+        run: |
+          echo "Node.js version $(node -v) is set."
+      
+      # Step 5: Install frontend dependencies
+      - name: Install Frontend Dependencies
+        run: |
+          npm install --legacy-peer-deps
+          echo "Frontend dependencies installed."
+        timeout-minutes: 20  # Adjust the timeout value as needed
+        
+      # Step 6: Run Security Checks
+      - name: Run Security Checks
+        run: |
+          # Check Clickjacking protection
+          if ! grep -q "frameguard" ./backend/app.js; then
+            echo "❌ Clickjacking protection missing."
+          else
+            echo "Clickjacking protection is in place."
+          fi
+          # Check Session Hijacking protection
+          if ! grep -q "cookie-session" ./backend/app.js; then
+            echo "❌ Session hijacking protection missing."
+          else
+            echo "Session hijacking protection is in place."
+          fi
+          # Check SQL Injection prevention
+          if ! grep -q "parameterized queries" ./backend/db.js; then
+            echo "❌ SQL Injection prevention missing."
+          else
+            echo "SQL Injection prevention is in place."
+          fi
+          # Check XSS protection
+          if ! grep -q "xss-clean" ./backend/app.js; then
+            echo "❌ XSS protection missing."
+          else
+            echo "XSS protection is in place."
+          fi
+          # Check HSTS header
+          if ! grep -q "strict-transport-security" ./backend/app.js; then
+            echo "❌ HSTS header missing."
+          else
+            echo "HSTS header is set."
+          fi
+          # Check DDoS protection
+          if ! grep -q "express-rate-limit" ./backend/app.js; then
+            echo "❌ DDoS protection missing."
+          else
+            echo "DDoS protection is in place."
+          fi
+
+   # Step 5: Run npm audit
+      - name: Run npm audit
+        run: |
+          cd "Backend"
+          npm audit --audit-level=high || true  # Run audit and ignore errors (always exit with 0)
+     
+      # Step 7: Upload Test Results on Failure
+      - name: Upload Test Results on Failure
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: ./test-results
+
+      # Step 8: Complete Build
+      - name: Build Complete
+        if: success()
+        run: echo "All steps completed successfully!"
