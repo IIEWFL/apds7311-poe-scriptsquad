@@ -1,0 +1,30 @@
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.transaction-table th, .transaction-table td {
+    padding: 12px;  /* Increased padding for better readability */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.transaction-table th {
+    background-color: #9b59b6;  /* Lilac purple background for headers */
+    color: white;  /* White text for contrast */
+}
+
+.transaction-table tr:hover {
+    background-color: #e8d4f2;  /* Light lilac hover effect for rows */
+}
+
+.main-table-content {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    margin-left: 300px;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Added box-shadow for depth */
+    border: 1px solid #ddd;  /* Subtle border for a more defined structure */
+}
