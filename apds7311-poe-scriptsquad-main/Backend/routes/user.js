@@ -25,19 +25,19 @@ const bruteforce = new ExpressBrute(store,
     const validateRegistrationInputs = (req, res, next) => {
         const { firstName, lastName, email, username, password, confirmPassword, idNumber } = req.body;
     
-        if (!ValidationUtils.validateName(firstName) || !ValidationUtils.validateName(lastName)) {
+        if (!validationchecks.validateName(firstName) || !validationchecks.validateName(lastName)) {
             return res.status(400).send({ error: "Invalid first or last name. Use only letters." });
         }
-        if (!ValidationUtils.validateEmail(email)) {
+        if (!validationchecks.validateEmail(email)) {
             return res.status(400).send({ error: "Invalid email format." });
         }
-        if (!ValidationUtils.validateUsername(username)) {
+        if (!validationchecks.validateUsername(username)) {
             return res.status(400).send({ error: "Invalid username. Use only alphanumeric characters (3-20)." });
         }
-        if (!ValidationUtils.validateIDNumber(idNumber)) {
+        if (!validationchecks.validateIDNumber(idNumber)) {
             return res.status(400).send({ error: "Invalid South African ID number. Must be 13 digits." });
         }
-        if (!ValidationUtils.validatePassword(password)) {
+        if (!validationchecks.validatePassword(password)) {
             return res.status(400).send({ error: password + " is an invalid Password. Password must be 8-30 chars, include at least one number, one letter, and one special character." });
         }    
     
