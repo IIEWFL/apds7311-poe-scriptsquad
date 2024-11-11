@@ -54,7 +54,7 @@ jobs:
       # Step 3: Install backend dependencies
       - name: Install Backend Dependencies
         run: |
-          cd "Backend"
+          cd "apds7311-poe-scriptsquad-main/Backend"
           npm install
           echo "Backend dependencies installed."
       
@@ -113,7 +113,7 @@ jobs:
    # Step 5: Run npm audit
       - name: Run npm audit
         run: |
-          cd "Backend"
+          cd "apds7311-poe-scriptsquad-main/Backend"
           npm audit --audit-level=high || true  # Run audit and ignore errors (always exit with 0)
      
       # Step 7: Upload Test Results on Failure
