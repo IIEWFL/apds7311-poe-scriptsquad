@@ -1,5 +1,5 @@
 Changes and Sonar, Circle.ci, Snyk results under Updates To The App.docx.
-
+Some files are uploaded for marking that wouldn't be if in a production environment. I have also ignored the secure TLS warning from my circle.ci pipeline as we are using a self-signed certificate, and not a trusted one. In production the code would disallow this.
 Encountering minor error where my react scripts do not download using npm install, use  ```
 npm install -g react-scripts   ```  if this occurs.
 
