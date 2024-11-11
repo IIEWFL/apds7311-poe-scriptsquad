@@ -1,3 +1,4 @@
+Changes and Sonar, Circle.ci, Snyk results under Updates To The App.docx.
 
 # International Payments Portal
 
@@ -22,7 +23,7 @@
 ---
 
 ## 2. Project Overview
-The **International Payments Portal** provides a secure, user-friendly platform for processing international bank transactions. Customers can register, log in, and complete payments through a streamlined interface, while bank employees can review and approve transactions before they are securely processed via the SWIFT network. This system prioritizes both ease of use and robust security to facilitate reliable cross-border payments.
+The **International Payments Portal** is a secure and user-friendly platform for processing international bank transactions. It allows customers to register, log in, and complete cross-border payments, while bank employees can review and approve transactions before they are securely processed via the SWIFT network. The system prioritizes ease of use while ensuring robust security for reliable international payments.
 
 ---
 
@@ -36,44 +37,81 @@ The **International Payments Portal** provides a secure, user-friendly platform 
 ## 4. Features
 
 ### Customer Portal
-- **User Registration**: Customers register with required details (full name, ID number, account number, and password) securely.
-- **Login**: Customers can authenticate using their username, account number, and password.
+- **User Registration**: Customers can register with necessary details (full name, ID number, account number, and password).
+- **Login**: Customers authenticate using their username, account number, and password.
 
 ### International Payment
-- **Transaction Options**: Customers select the payment amount, currency, and provider (e.g., SWIFT).
-- **Payee Details**: Required fields include payee’s account information and SWIFT code.
-- **Finalization**: Customers review and finalize payment details to initiate a secure transaction.
+- **Transaction Options**: Customers can select payment amount, currency, and provider (e.g., SWIFT).
+- **Payee Details**: Required fields for payee's account information and SWIFT code.
+- **Payment Finalization**: Customers review and finalize payment details before initiating a secure transaction.
 
 ### Employee Portal
-- **Payment Verification**: Bank employees have a verification process for international payments, adding a layer of security.
-- **Transaction Management**: Tools for employees to review, validate, and process transactions.
+- **Payment Verification**: Bank employees verify international payments to ensure compliance and security.
+- **Transaction Management**: Employees can review, validate, and process transactions.
 
 ---
 
 ## 5. Security Measures
-Security is a core aspect of the portal, encompassing the following:
+Security is a core priority in the portal, which includes:
 
-- **Password Hashing**: Utilizes secure hashing and salting for password storage.
-- **Brute-Force Protection**: Prevents unauthorized access with Express Brute for failed login attempts.
-- **Input Validation**: Enforces input security with RegEx-based whitelisting, mitigating SQL injection and XSS risks.
-- **SSL Encryption**: All communications are SSL-encrypted to secure data in transit.
-- **Session Management**: Secured session handling prevents unauthorized access or session hijacking.
+- **Password Hashing**: Secure hashing and salting of passwords for safe storage.
+- **Brute-Force Protection**: Protection against unauthorized access using Express Brute to limit failed login attempts.
+- **Input Validation**: Input validation through RegEx-based whitelisting to prevent SQL injection and XSS attacks.
+- **SSL Encryption**: SSL-encrypted communications to secure data in transit.
+- **Session Management**: Secure session handling to prevent session hijacking and unauthorized access.
 
 ---
 
-## 6. Getting Started
+## 6. Getting Started with the SafeTransact App
 
-To set up the application locally, follow these preliminary steps:
+Follow these steps to set up and run the application locally:
+
+### 1. Set Up the Frontend
+1. Open a terminal in the `apds7311-poe-scriptsquad-main` folder.
+2. Install the required dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+### 2. Set Up the Backend
+1. Navigate to the `apds7311-poe-scriptsquad-main/Backend` folder.
+2. Install the backend dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the backend server:
+   ```bash
+   npm start
+   ```
+
+---
+
+## Admin Account
+
+To log in as an admin and manage transactions (confirm, deny, or flag), use the following credentials:
+
+- **Username**: `AariyaS`
+- **Password**: `AariyaS.123`
+
+---
 
 ### Browser Configuration for HTTPS Testing
+To bypass SSL warnings during local development, configure your browser as follows:
+
 1. Open **Google Chrome**.
-2. Go to `chrome://flags/#allow-insecure-localhost`.
-3. Enable "Allow invalid certificates for resources loaded from localhost" to bypass SSL warnings on localhost (only for testing).
+2. Navigate to `chrome://flags/#allow-insecure-localhost`.
+3. Enable **"Allow invalid certificates for resources loaded from localhost"**.
+
+---
 
 ### Required Tools
 - **Visual Studio Code**: IDE for editing and managing code.
-- **Node.js**: Required for backend server functionality.
-- **MongoDB**: Database setup (either locally or via MongoDB Atlas).
+- **Node.js**: Ensure Node.js is installed for backend server functionality.
+- **MongoDB**: Set up MongoDB locally or use MongoDB Atlas for cloud storage.
 
 ---
 
@@ -87,36 +125,21 @@ To set up the application locally, follow these preliminary steps:
    ```
 
 2. **Install Dependencies**  
-   - **Backend**:  
-     ```bash
-     cd backend
-     npm install
-     ```
-   - **Frontend**:  
-     ```bash
-     cd international-payments-portal
-     npm install
-     ```
+   Navigate to both the frontend and backend directories and install the required dependencies:
+   ```bash
+   cd apds7311-poe-scriptsquad-main
+   npm install  # for frontend
+   cd Backend
+   npm install  # for backend
+   ```
 
 3. **Configure Environment Variables**  
    - In the backend directory, create a `.env` file with necessary environment variables, such as database URIs and API keys.
 
 4. **Start MongoDB**  
-   - If using a local MongoDB instance, ensure it’s running; otherwise, verify your MongoDB Atlas connection.
+   - If using a local MongoDB instance, make sure it's running. Alternatively, configure your MongoDB Atlas connection.
 
-5. **Run the Application**  
-   - **Backend**:  
-     ```bash
-     cd backend
-     npm start
-     ```
-   - **Frontend**:  
-     ```bash
-     cd international-payments-portal
-     npm start
-     ```
-
-6. **Access the Application**  
+5. **Access the Application**  
    - **Frontend**: [http://localhost:3000](http://localhost:3000)
    - **Backend**: [http://localhost:3001](http://localhost:3001)
 
@@ -126,19 +149,23 @@ To set up the application locally, follow these preliminary steps:
 
 ### Common Issues
 
-1. **Invalid Port**: Ensure the backend runs on port 3001 and the frontend on port 3000.
-2. **MongoDB Connection Errors**: Confirm MongoDB is active locally or check your MongoDB Atlas connection string.
-3. **JWT Authentication Issues**: Confirm the token is properly included in the `Authorization` header (`Bearer <token>`).
-4. **CORS Policy Errors**: Check CORS configurations in `server.js` to allow frontend-backend communication.
-5. **Environment Variables Not Set**: Ensure that `.env` is correctly configured and loaded in your backend.
+- **Invalid Port**: Ensure the backend runs on port 3001 and the frontend on port 3000.
+- **MongoDB Connection Errors**: Verify MongoDB is active locally or check the connection string for MongoDB Atlas.
+- **JWT Authentication Issues**: Ensure the token is included in the `Authorization` header (`Bearer <token>`).
+- **CORS Errors**: If there are issues with frontend-backend communication, check CORS settings in `server.js`.
+- **Environment Variables Not Set**: Ensure that the `.env` file is properly configured and loaded in the backend.
 
 ---
 
 ## 9. Additional Resources
 
-- **Demo Video**: [Google Drive Link](https://drive.google.com/drive/folders/11AD3YWT0dndtYNnAnZRbUBEXp8TcqOZE?usp=sharing)  
+- **Demo Video**: [Google Drive Link](https://drive.google.com/drive/folders/11AD3YWT0dndtYNnAnZRbUBEXp8TcqOZE?usp=sharing)
 - **React Documentation**: [React](https://reactjs.org/docs/getting-started.html)
 - **Node.js Documentation**: [Node.js](https://nodejs.org/en/docs/)
 - **MongoDB Documentation**: [MongoDB](https://docs.mongodb.com/)
 
-For further assistance, please contact any of the group members listed in the [Group Members](#group-members) section.
+For further assistance, please reach out to any of the group members listed in the [Group Members](#group-members) section.
+
+---
+
+This version improves readability, consistency, and structure. Let me know if there are any other adjustments you'd like!
